@@ -21,3 +21,25 @@ db.heroes.update({ _id: ObjectId('61ec540f32c720f0fd7eefb6') }, { $set: { name: 
 db.heroes.remove({}) //perigoso, remove tudo
 
 db.heroes.remove({ _id: ObjectId('61ec4d132b1fbc7324cee009') })
+
+// yarn add mongoose
+
+// const Mongoose = require('mongoose');
+
+// Mongoose.connect('mongodb://pedro:12345@localhost:27017/heroes', { useNewUrlParser: true }, function (error) {
+//   if (!error) {
+//     return;
+//   }
+
+//   console.error('Falha conexão mongoose', error);
+// })
+
+// const connection = Mongoose.connection;
+
+// connection.once('open', () => console.log('Db connect'));
+
+// const state = connection.readyState;
+
+// console.log(state);
+
+// 0 disconnected || 1 Connected || 2 Connecting || 3 Disconnecting
