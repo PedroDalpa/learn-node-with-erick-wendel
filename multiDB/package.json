@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "mocha src/test/*.test.js -w"
+  },
   "dependencies": {
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
