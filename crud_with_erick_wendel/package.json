@@ -1,0 +1,15 @@
+{
+  "name": "crud_with_erick_wendel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha src/test -w"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.4"
+  },
+  "dependencies": {
+    "commander": "^8.3.0"
+  }
+}
