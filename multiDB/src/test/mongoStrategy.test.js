@@ -9,7 +9,7 @@ const MOCK_HERO_CREATE = { name: 'spider-man', power: 'spider sense' };
 
 describe('Mongo Strategy', function () {
   this.beforeAll(async () => {
-    await context.connect()
+    await context.connect();
   })
 
   it('Verify Connection', async () => {
@@ -18,11 +18,35 @@ describe('Mongo Strategy', function () {
     assert.deepEqual(result, 1)
   });
 
-  it.only('Create hero', async () => {
+  it('Create hero', async () => {
+
     const { name, power } = await context.create(MOCK_HERO_CREATE);
 
-    console.log('result', { name, power });
+    assert.deepEqual({ name, power }, MOCK_HERO_CREATE);
+  })
 
-    assert.deepEqual({ name, power }, MOCK_HERO_CREATE)
+  it('List hero', async () => {
+    const [{ name, power }] = await context.read({ name: MOCK_HERO_CREATE.name });
+
+    assert.deepEqual({ name, power }, MOCK_HERO_CREATE);
+  })
+
+
+  it('Update hero', async () => {
+    const [{ _id }] = await context.read({ name: MOCK_HERO_CREATE.name });
+
+    await context.update(_id, { name: 'Batman' });
+
+    const [{ name, power }] = await context.read({ name: 'Batman' });
+
+    assert.deepEqual({ name, power }, { name: 'Batman', power: 'spider sense' });
+  });
+
+  it('Delete hero', async () => {
+    const [{ _id }] = await context.read({ name: 'Batman' });
+
+    const result = await context.delete(_id);
+
+    assert.deepEqual(result.deletedCount, 1);
   })
 })

@@ -8,7 +8,7 @@ class MongoDB extends ICrud {
   }
 
   async create(item) {
-    console.log(item);
+
     return this._heroes.create(item)
   }
 
@@ -57,8 +57,22 @@ class MongoDB extends ICrud {
       }
     })
 
-    this._heroes = Mongoose.model('heroes', heroSchema)
+    this._heroes = Mongoose.models.heroes ? Mongoose.models.heroes : Mongoose.model('heroes', heroSchema)
+
   }
+
+  async read(query, skip = 0, limit = 10) {
+    return this._heroes.find(query).skip(skip).limit(limit)
+  }
+
+  async update(id, item) {
+    return this._heroes.updateOne({ _id: id }, { $set: item });
+  }
+
+  async delete(id) {
+    return this._heroes.deleteOne({ _id: id });
+  }
+
 }
 
 module.exports = MongoDB
