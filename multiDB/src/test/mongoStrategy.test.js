@@ -1,15 +1,18 @@
 const assert = require('assert');
 
-const MongoDB = require('../db/strategies/mongodb');
+const MongoDB = require('../db/strategies/mongodb/mongodb');
 const Context = require('../db/strategies/base/contextStrategy');
+const HeroSchema = require('../db/strategies/mongodb/schemas/heroesSchema');
 
-const context = new Context(new MongoDB());
+let context = {}
 
 const MOCK_HERO_CREATE = { name: 'spider-man', power: 'spider sense' };
 
 describe('Mongo Strategy', function () {
   this.beforeAll(async () => {
-    await context.connect();
+    const connection = MongoDB.connect();
+
+    context = new Context(new MongoDB(connection, HeroSchema));
   })
 
   it('Verify Connection', async () => {
