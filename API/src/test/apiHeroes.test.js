@@ -4,7 +4,12 @@ const api = require('../api');
 
 let app = {};
 
-describe.only('API Heroes Test', function () {
+const DEFAULT_CREATE_HERO = {
+  name: 'Pedro',
+  power: 'Developer'
+}
+
+describe('API Heroes Test', function () {
   this.beforeAll(async () => {
     app = await api;
   });
@@ -45,5 +50,19 @@ describe.only('API Heroes Test', function () {
     assert.ok(dados.length === 1);
 
     assert.deepEqual(result.statusCode, 200);
+  })
+
+  it('create /heroes', async () => {
+    const response = await app.inject({
+      method: 'POST',
+      url: '/heroes',
+      payload: DEFAULT_CREATE_HERO
+    });
+
+    const { message, id } = response.result
+
+    assert.deepEqual(response.statusCode, 200);
+    assert.notStrictEqual(id, undefined)
+    assert.deepEqual(message, 'Hero created with successful');
   })
 })
