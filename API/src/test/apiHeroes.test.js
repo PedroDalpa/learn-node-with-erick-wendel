@@ -81,7 +81,7 @@ describe('API Heroes Test', function () {
     assert.deepEqual(message, 'Hero created with successful');
   })
 
-  it('atualizar /heroes/:id', async () => {
+  it('update /heroes/:id', async () => {
     const expected = {
       power: 'Metade aranha metade porco'
     }
@@ -97,6 +97,21 @@ describe('API Heroes Test', function () {
     assert.deepEqual(response.statusCode, 200);
 
     assert.deepEqual(message, 'Hero updated with successful');
+
+  })
+
+  it.only('delete /heroes/:id', async () => {
+
+    const response = await app.inject({
+      method: 'DELETE',
+      url: `/heroes/${DEFAULT_INIT_HERO_ID}`,
+    });
+
+    const { message } = response.result;
+
+    assert.deepEqual(response.statusCode, 200);
+
+    assert.deepEqual(message, 'Hero deleted with successful');
 
   })
 })
