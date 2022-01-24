@@ -1,0 +1,19 @@
+{
+  "name": "multiDB",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha src/test/*.test.js -w"
+  },
+  "dependencies": {
+    "hapi": "^18.1.0",
+    "mongoose": "^6.1.7",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.14.0"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.4"
+  }
+}
