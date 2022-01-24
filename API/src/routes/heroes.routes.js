@@ -1,5 +1,6 @@
 const BaseRoutes = require('./index.routes')
 const Joi = require('joi');
+const Boom = require('boom');
 
 class HeroRoutes extends BaseRoutes {
   constructor(db) {
@@ -33,7 +34,7 @@ class HeroRoutes extends BaseRoutes {
         } catch (error) {
           console.error(error);
 
-          return 'Erro interno'
+          return Boom.internal()
         }
       }
     }
@@ -67,7 +68,7 @@ class HeroRoutes extends BaseRoutes {
         } catch (error) {
           console.error(error);
 
-          return 'Erro interno'
+          return Boom.internal()
         }
       }
     }
@@ -103,7 +104,7 @@ class HeroRoutes extends BaseRoutes {
 
           console.log(result);
 
-          if (result.modifiedCount !== 1) throw new Error('Can not updated this hero')
+          if (result.modifiedCount !== 1) return Boom.preconditionFailed('Hero not found')
 
           return {
             message: 'Hero updated with successful'
@@ -111,7 +112,7 @@ class HeroRoutes extends BaseRoutes {
         } catch (error) {
           console.error(error);
 
-          return 'Erro interno'
+          return Boom.internal()
         }
       }
     }
@@ -143,7 +144,7 @@ class HeroRoutes extends BaseRoutes {
         } catch (error) {
           console.error(error);
 
-          return 'Erro interno'
+          return Boom.internal()
         }
       }
     }

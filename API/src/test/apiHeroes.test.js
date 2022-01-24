@@ -100,7 +100,7 @@ describe('API Heroes Test', function () {
 
   })
 
-  it.only('delete /heroes/:id', async () => {
+  it('delete /heroes/:id', async () => {
 
     const response = await app.inject({
       method: 'DELETE',
