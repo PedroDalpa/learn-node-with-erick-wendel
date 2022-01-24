@@ -9,9 +9,24 @@ const DEFAULT_CREATE_HERO = {
   power: 'Developer'
 }
 
+const DEFAULT_INIT_HERO = {
+  name: 'Porco-Aranha',
+  power: 'Porco/Aranha'
+}
+
+let DEFAULT_INIT_HERO_ID = ''
+
 describe('API Heroes Test', function () {
   this.beforeAll(async () => {
     app = await api;
+
+    const response = await app.inject({
+      method: 'POST',
+      url: '/heroes',
+      payload: DEFAULT_INIT_HERO
+    });
+
+    DEFAULT_INIT_HERO_ID = response.result.id;
   });
 
   it('list /heroes', async () => {
@@ -64,5 +79,24 @@ describe('API Heroes Test', function () {
     assert.deepEqual(response.statusCode, 200);
     assert.notStrictEqual(id, undefined)
     assert.deepEqual(message, 'Hero created with successful');
+  })
+
+  it.only('atualizar /heroes/:id', async () => {
+    const expected = {
+      power: 'Metade aranha metade porco'
+    }
+
+    const response = await app.inject({
+      method: 'PATCH',
+      url: `/heroes/${DEFAULT_INIT_HERO_ID}`,
+      payload: expected
+    });
+
+    const { message, hero } = response.result
+
+    assert.deepEqual(response.statusCode, 200);
+
+    assert.deepEqual(message, 'Hero updated with successful');
+
   })
 })
