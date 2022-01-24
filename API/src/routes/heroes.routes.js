@@ -117,7 +117,7 @@ class HeroRoutes extends BaseRoutes {
     }
   }
 
-  update() {
+  delete() {
     return {
       path: '/heroes/{id}',
       method: 'DELETE',
