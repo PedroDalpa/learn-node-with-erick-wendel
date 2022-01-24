@@ -12,7 +12,22 @@ class HeroRoutes extends BaseRoutes {
       path: '/heroes',
       method: 'GET',
       handler: (request, headers) => {
-        return this.db.read();
+        try {
+          const { skip, limit, name } = request.query;
+          let query = {};
+
+          if (name) query.name = name;
+
+          if ((isNaN(skip) && skip) || (isNaN(limit) && limit)) {
+            throw new Error('Tipo invalido')
+          }
+
+          return this.db.read(query, Number(skip), Number(limit));
+        } catch (error) {
+          console.error(error);
+
+          return 'Erro interno'
+        }
       }
     }
   }
