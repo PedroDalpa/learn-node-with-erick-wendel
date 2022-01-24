@@ -7,7 +7,8 @@
     "test": "mocha src/test/*.test.js -w"
   },
   "dependencies": {
-    "hapi": "^18.1.0",
+    "@hapi/hapi": "^20.2.1",
+    "joi": "^17.5.0",
     "mongoose": "^6.1.7",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
