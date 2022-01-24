@@ -81,7 +81,7 @@ describe('API Heroes Test', function () {
     assert.deepEqual(message, 'Hero created with successful');
   })
 
-  it.only('atualizar /heroes/:id', async () => {
+  it('atualizar /heroes/:id', async () => {
     const expected = {
       power: 'Metade aranha metade porco'
     }
@@ -92,7 +92,7 @@ describe('API Heroes Test', function () {
       payload: expected
     });
 
-    const { message, hero } = response.result
+    const { message } = response.result;
 
     assert.deepEqual(response.statusCode, 200);
 

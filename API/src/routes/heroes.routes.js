@@ -97,14 +97,16 @@ class HeroRoutes extends BaseRoutes {
           const { id } = request.params;
 
           const dadosString = JSON.stringify(payload);
-          const hero = JSON.parse(dadosString)
+          const hero = JSON.parse(dadosString);
+
           const result = await this.db.update(id, hero);
 
-          if (result.nModified !== 1) throw new Error('Can not updated this hero')
+          console.log(result);
+
+          if (result.modifiedCount !== 1) throw new Error('Can not updated this hero')
 
           return {
-            message: 'Hero updated with successful',
-            hero: result
+            message: 'Hero updated with successful'
           };
         } catch (error) {
           console.error(error);
