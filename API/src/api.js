@@ -24,7 +24,7 @@ const UserSchema = require('./db/strategies/postgres/schemas/userSchema');
 
 
 const app = new Hapi.Server({
-  port: process.env.APP_PORT
+  port: process.env.PORT
 });
 
 function mapRoutes(instance, methods) {

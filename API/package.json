@@ -9,6 +9,9 @@
     "dev": "node src/start.js",
     "prod": "NODE_ENV=prod src/start.js"
   },
+  "engines": {
+    "npm": "8.x"
+  },
   "dependencies": {
     "@hapi/hapi": "^20.2.1",
     "bcrypt": "^5.0.1",
