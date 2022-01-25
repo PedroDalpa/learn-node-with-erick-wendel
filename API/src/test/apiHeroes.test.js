@@ -4,6 +4,12 @@ const api = require('../api');
 
 let app = {};
 
+const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlZHJvZGFscGEiLCJpZCI6MSwiaWF0IjoxNjQzMTI4MzQ4fQ.dsTE2w3iDcwoXBOvdKJKrcIHn1ejXtRm-6FerXVCOdw'
+
+const headers = {
+  Authorization: TOKEN
+}
+
 const DEFAULT_CREATE_HERO = {
   name: 'Pedro',
   power: 'Developer'
@@ -14,7 +20,7 @@ const DEFAULT_INIT_HERO = {
   power: 'Porco/Aranha'
 }
 
-let DEFAULT_INIT_HERO_ID = ''
+let DEFAULT_INIT_HERO_ID = '';
 
 describe('API Heroes Test', function () {
   this.beforeAll(async () => {
@@ -23,6 +29,7 @@ describe('API Heroes Test', function () {
     const response = await app.inject({
       method: 'POST',
       url: '/heroes',
+      headers,
       payload: DEFAULT_INIT_HERO
     });
 
@@ -32,7 +39,8 @@ describe('API Heroes Test', function () {
   it('list /heroes', async () => {
     const result = await app.inject({
       method: 'GET',
-      url: '/heroes'
+      url: '/heroes',
+      headers
     });
 
     const dados = JSON.parse(result.payload);
@@ -44,7 +52,8 @@ describe('API Heroes Test', function () {
   it('list /heroes - deve retornar somente 10 registros', async () => {
     const result = await app.inject({
       method: 'GET',
-      url: '/heroes?limit=5'
+      url: '/heroes?limit=5',
+      headers
     });
 
     const dados = JSON.parse(result.payload);
@@ -57,7 +66,8 @@ describe('API Heroes Test', function () {
   it('list /heroes - deve retornar filtrado pelo name', async () => {
     const result = await app.inject({
       method: 'GET',
-      url: '/heroes?name=Miranha'
+      url: '/heroes?name=Miranha',
+      headers
     });
 
     const dados = JSON.parse(result.payload);
@@ -71,7 +81,8 @@ describe('API Heroes Test', function () {
     const response = await app.inject({
       method: 'POST',
       url: '/heroes',
-      payload: DEFAULT_CREATE_HERO
+      payload: DEFAULT_CREATE_HERO,
+      headers
     });
 
     const { message, id } = response.result
@@ -89,7 +100,8 @@ describe('API Heroes Test', function () {
     const response = await app.inject({
       method: 'PATCH',
       url: `/heroes/${DEFAULT_INIT_HERO_ID}`,
-      payload: expected
+      payload: expected,
+      headers
     });
 
     const { message } = response.result;
@@ -105,6 +117,7 @@ describe('API Heroes Test', function () {
     const response = await app.inject({
       method: 'DELETE',
       url: `/heroes/${DEFAULT_INIT_HERO_ID}`,
+      headers
     });
 
     const { message } = response.result;

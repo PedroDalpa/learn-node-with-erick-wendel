@@ -2,6 +2,10 @@ const BaseRoutes = require('./index.routes')
 const Joi = require('joi');
 const Boom = require('boom');
 
+const headers = Joi.object({
+  authorization: Joi.string().required(),
+}).unknown()
+
 class HeroRoutes extends BaseRoutes {
   constructor(db) {
     super();
@@ -19,6 +23,7 @@ class HeroRoutes extends BaseRoutes {
             limit: Joi.number().integer().default(10),
             name: Joi.string().min(3).max(100)
           }).options({ stripUnknown: true }),
+          headers,
           failAction: (request, headers, erro) => {
             throw erro
           }
@@ -50,6 +55,7 @@ class HeroRoutes extends BaseRoutes {
             power: Joi.string().min(3).max(100).required(),
             name: Joi.string().min(3).max(100).required()
           }),
+          headers,
           failAction: (request, headers, erro) => {
             throw erro
           }
@@ -84,6 +90,7 @@ class HeroRoutes extends BaseRoutes {
             power: Joi.string().min(3).max(100),
             name: Joi.string().min(3).max(100)
           }),
+          headers,
           params: Joi.object({
             id: Joi.string().required(),
           }),
@@ -101,8 +108,6 @@ class HeroRoutes extends BaseRoutes {
           const hero = JSON.parse(dadosString);
 
           const result = await this.db.update(id, hero);
-
-          console.log(result);
 
           if (result.modifiedCount !== 1) return Boom.preconditionFailed('Hero not found')
 
@@ -127,6 +132,7 @@ class HeroRoutes extends BaseRoutes {
           params: Joi.object({
             id: Joi.string().required(),
           }),
+          headers,
           failAction: (request, headers, erro) => {
             throw erro
           }
