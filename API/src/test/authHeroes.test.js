@@ -9,7 +9,7 @@ let app = {};
 
 const HASH = '$2b$04$JJrcy5XCHRP0xvn0djrEbuqczvUvCpIH/D5Crps5ketaEvWnLlWgO'
 
-describe.only('API Heroes Test', function () {
+describe('API Heroes Test', function () {
   this.beforeAll(async () => {
     app = await api;
 
