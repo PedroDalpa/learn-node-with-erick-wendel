@@ -4,11 +4,9 @@ const { promisify } = require('util');
 const hashAsync = promisify(Bcrypt.hash);
 const compareAsync = promisify(Bcrypt.compare);
 
-const SALT = 3;
-
 class PasswordHelper {
   static hashPassword(pass) {
-    return hashAsync(pass, SALT);
+    return hashAsync(pass, Number(process.env.JWT_SALT));
 
   }
 

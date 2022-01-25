@@ -1,3 +1,16 @@
+const { config } = require('dotenv');
+const { join } = require('path');
+const { ok } = require('assert');
+
+const env = process.env.NODE_ENV || "dev";
+ok(env === "dev" || env === "prod", 'Invalid .env config');
+
+const configPath = join(__dirname, '../config', `.env.${env}`);
+
+config({
+  path: configPath
+})
+console.log(process.env.SSL_DB, configPath);
 const Hapi = require('@hapi/hapi');
 const HapiJWT = require('hapi-auth-jwt2');
 
@@ -9,8 +22,9 @@ const AuthRoutes = require('./routes/auth.routes');
 const Postgres = require('./db/strategies/postgres/postgres');
 const UserSchema = require('./db/strategies/postgres/schemas/userSchema');
 
+
 const app = new Hapi.Server({
-  port: 5000
+  port: process.env.APP_PORT
 });
 
 function mapRoutes(instance, methods) {
@@ -31,7 +45,7 @@ async function main() {
   ]);
 
   app.auth.strategy('jwt', 'jwt', {
-    key: 'secret',
+    key: process.env.JWT_SECRET_KEY,
     validate: async (data, request) => {
       const result = await postgresContext.read({
         username: data.username,

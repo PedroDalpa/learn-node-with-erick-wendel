@@ -47,7 +47,7 @@ class AuthRoutes extends BaseRoutes {
           const token = JWT.sign({
             username,
             id: user.id
-          }, 'secret')
+          }, process.env.JWT_SECRET_KEY)
 
           return {
             token
