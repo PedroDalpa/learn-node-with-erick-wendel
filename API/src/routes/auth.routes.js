@@ -2,6 +2,7 @@ const BaseRoutes = require('./index.routes')
 const Joi = require('joi');
 const Boom = require('boom');
 const JWT = require('jsonwebtoken');
+const PasswordHelper = require('../helpers/passwordHelper');
 
 class AuthRoutes extends BaseRoutes {
   constructor(db) {
@@ -29,13 +30,23 @@ class AuthRoutes extends BaseRoutes {
         try {
           const { username, password } = request.payload;
 
-          if (username.toLowerCase() !== 'pedrodalpa' || password !== '12345') {
-            return Boom.unauthorized()
+          const [user] = await this.db.read({
+            username: username.toLowerCase()
+          })
+
+          if (!user) {
+            return Boom.unauthorized('User or password incorrect');
+          }
+
+          const math = await PasswordHelper.comparePassword(password, user.password);
+
+          if (!math) {
+            return Boom.unauthorized('User or password incorrect');
           }
 
           const token = JWT.sign({
             username,
-            id: 1
+            id: user.id
           }, 'secret')
 
           return {
