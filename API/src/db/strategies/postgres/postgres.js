@@ -41,24 +41,25 @@ class Postgres extends ICrud {
   }
 
   static async connect() {
-    const connection = new Sequelize(
-      process.env.PG_DATABASE,
-      process.env.PG_USER,
-      process.env.PG_PASSWORD,
-      {
-        host: process.env.PG_HOST,
-        dialect: 'postgres',
-        queueIdentifiers: false,
-        operatorAliases: false,
+    try {
+      const connection = new Sequelize(process.env.POSTGRES_URL, {
+        quoteIdentifiers: false,
         logging: false,
-        // ssl: process.env.SSL_DB,
-        // dialectOptions: {
-        //   ssl: process.env.SSL_DB
-        // }
-      }
-    )
+        dialectOptions: process.env.SSL_DB ? {
+          ssl: {
+            require: eval(process.env.SSL_DB),
+            rejectUnauthorized: eval(process.env.SSL_DB_REJECT),
+          }
+        } : {},
+      })
 
-    return connection
+      console.info('postgres DB connect');
+
+      return connection
+    } catch (error) {
+      console.error(error);
+      return false
+    }
   }
 
   static async defineModel(connection, schema) {

@@ -4,10 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "mocha src/test/*.test.js -w",
-    "test:prod": "NODE_ENV=prod mocha src/test/*.test.js -w --timeout 5000",
+    "test": "mocha src/test/*.test.js -w --timeout 10000",
+    "test:prod": "NODE_ENV=production mocha src/test/*.test.js -w --timeout 10000",
     "dev": "node src/start.js",
-    "prod": "NODE_ENV=prod src/start.js"
+    "prod": "node src/start.js"
   },
   "engines": {
     "npm": "8.x"

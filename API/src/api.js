@@ -3,7 +3,7 @@ const { join } = require('path');
 const { ok } = require('assert');
 
 const env = process.env.NODE_ENV || "dev";
-ok(env === "dev" || env === "prod", 'Invalid .env config');
+ok(env === "dev" || env === "production", 'Invalid .env config');
 
 const configPath = join(__dirname, '../config', `.env.${env}`);
 

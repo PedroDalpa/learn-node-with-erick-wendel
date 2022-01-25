@@ -4,5 +4,5 @@ const app = require('./api');
   const server = await app;
   server.start();
 
-  console.log('server is running on port:', server.info.port);
+  console.info('server is running on port:', server.info.port);
 })()

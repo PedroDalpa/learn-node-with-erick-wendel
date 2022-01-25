@@ -22,7 +22,7 @@ async function main() {
   ]);
 
   await app.start();
-  console.log('Servidor On', app.info.port);
+  console.info('Servidor On', app.info.port);
 }
 
 main()
