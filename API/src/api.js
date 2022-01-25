@@ -71,8 +71,6 @@ async function main() {
     ...mapRoutes(new AuthRoutes(postgresContext), AuthRoutes.methods())
   ]);
 
-  console.log('Servidor On', app.info.port);
-
   return app;
 }
 

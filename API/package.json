@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "test": "mocha src/test/*.test.js -w",
-    "test:prod": "NODE_ENV=prod mocha src/test/*.test.js -w --timeout 5000"
+    "test:prod": "NODE_ENV=prod mocha src/test/*.test.js -w --timeout 5000",
+    "dev": "node src/start.js"
   },
   "dependencies": {
     "@hapi/hapi": "^20.2.1",
