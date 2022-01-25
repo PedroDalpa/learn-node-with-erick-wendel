@@ -9,8 +9,8 @@ const configPath = join(__dirname, '../config', `.env.${env}`);
 
 config({
   path: configPath
-})
-console.log(process.env.SSL_DB, configPath);
+});
+
 const Hapi = require('@hapi/hapi');
 const HapiJWT = require('hapi-auth-jwt2');
 
@@ -70,8 +70,6 @@ async function main() {
     ...mapRoutes(new HeroRoutes(context), HeroRoutes.methods()),
     ...mapRoutes(new AuthRoutes(postgresContext), AuthRoutes.methods())
   ]);
-
-  await app.start();
 
   console.log('Servidor On', app.info.port);
 
